@@ -48,3 +48,7 @@ And visit the web page:
 ```
 $ open http://127.0.0.1:9999
 ```
+
+## License
+
+Please, take a look at the [LICENSE](https://github.com/kimrgrey/go-create-react-app/blob/master/LICENSE) file for details about this aspect of the project.
