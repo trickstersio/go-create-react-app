@@ -2,8 +2,16 @@ package server
 
 import "github.com/kimrgrey/go-create-react-app/webpack"
 
+// User represents current user session
+type User struct {
+	Email     string
+	FirstName string
+	LastName  string
+}
+
 // ViewData contains data for the view
 type ViewData struct {
+	CurrentUser  User
 	assetsMapper webpack.AssetsMapper
 }
 
@@ -14,7 +22,14 @@ func NewViewData(buildPath string) (ViewData, error) {
 		return ViewData{}, err
 	}
 
-	return ViewData{assetsMapper: assetsMapper}, nil
+	return ViewData{
+		CurrentUser: User{
+			Email:     "bill@example.com",
+			FirstName: "Bill",
+			LastName:  "Black",
+		},
+		assetsMapper: assetsMapper,
+	}, nil
 }
 
 // Webpack maps file name to path

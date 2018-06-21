@@ -3,11 +3,115 @@
   <head>
     <meta charset="utf-8">
     <title>Create React App on the Go</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i&amp;subset=cyrillic" rel="stylesheet">
     <link href="{{ .Webpack "main.css" }}" rel="stylesheet">
+    <style>
+      * {
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html, body {
+        height: 100%;
+      }
+
+      .page {
+        display: grid;
+        height: 100%;
+
+        grid-template-columns: 270px 1fr 1fr 1fr;
+        grid-template-rows: auto 1fr;
+        grid-template-areas:
+          "header header header header"
+          "sidebar main main main"
+      }
+
+      .header {
+        grid-area: header;
+        display: flex;
+        align-items: center;
+        background-color: #383d4b;
+        box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08);
+        height: 60px;
+        padding: 0px 40px;
+      }
+
+      .header .user {
+        font-size: 14px;
+        font-weight: normal;
+        color: #ffffff;
+        flex-grow: 1;
+        text-align: right;
+      }
+
+      .header .title {
+        font-size: 14px;
+        font-weight: bold;
+        color: #ffffff;
+      }
+
+      .burger {
+        display: flex;
+        flex-direction: column;
+        margin-right: 20px;
+        cursor: pointer;
+      }
+
+      .burger-item {
+        width: 16px;
+        height: 2px;
+        background-color: #ffffff;
+        margin: 2px 0;
+      }
+
+      .main {
+        grid-area: main;
+        padding: 40px 30px;
+      }
+
+      .sidebar {
+        grid-area: sidebar;
+        background-color: #5b6170;
+      }
+
+      h1 {
+        font-size: 28px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #000000;
+      }
+    </style>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <script src="{{ .Webpack "main.js" }}"></script>
+    <div class="page">
+      <div class="header">
+        <div class="burger">
+          <span class="burger-item"></span>
+          <span class="burger-item"></span>
+          <span class="burger-item"></span>
+        </div>
+        <div class="title">
+          My Awesome App
+        </div>
+        <div class="user">
+          {{ .CurrentUser.Email }}
+        </div>
+      </div>
+
+      <div class="sidebar"></div>
+
+      <div class="main">
+        <h1>Home</h1>
+
+        <div id="root"></div>
+
+        <script src="{{ .Webpack "main.js" }}"></script>
+      </div>
+    </div>
   </body>
 </html>
