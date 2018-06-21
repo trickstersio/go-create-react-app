@@ -31,7 +31,7 @@ Let's build:
 
 ```
 $ cd $GOPATH/src/github.com/kimrgrey/go-create-react-app
-$ go build -o bin/go-create-react-app
+$ go build -o bin/go-create-react-app cmd/main.go
 ```
 
 ## How I can run it?
@@ -40,7 +40,7 @@ Just run server you built:
 
 ```
 $ cd $GOPATH/src/github.com/kimrgrey/go-create-react-app
-$ bin/go-create-react-app --listen 127.0.0.1:9999 --build-path ui/build
+$ bin/go-create-react-app --listen 127.0.0.1:9999 --build ui/build
 ```
 
 And visit the web page:
