@@ -6,33 +6,64 @@ import (
 	"io/ioutil"
 	"os"
 	"path"
+	"strings"
 )
 
-// AssetsMapper maps asset name to file name
-type AssetsMapper func(string) string
+// Webpack is a webpack integration
+type Webpack struct {
+	Manifest Manifest
+}
 
-// NewAssetsMapper creates assets mapper
-func NewAssetsMapper(buildPath string) (AssetsMapper, error) {
+// Manifest reflects the structure of asset-manifest.json
+type Manifest struct {
+	Files map[string]string `json:"files"`
+	Entrypoints Entrypoints
+}
+
+type Entrypoints []string
+
+func New(buildPath string) (*Webpack, error) {
+	webpack := &Webpack{}
 	assetsManifestPath := path.Join(buildPath, "asset-manifest.json")
 
 	if _, err := os.Stat(assetsManifestPath); os.IsNotExist(err) {
-		return func(file string) string {
-			return file
-		}, nil
+		return webpack, nil
 	}
 
 	content, err := ioutil.ReadFile(assetsManifestPath)
+
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to read manifest file %s: %w", assetsManifestPath, err)
 	}
 
-	var manifest map[string]string
-
-	if err = json.Unmarshal(content, &manifest); err != nil {
-		return nil, err
+	if err = json.Unmarshal(content, &webpack.Manifest); err != nil {
+		return nil, fmt.Errorf("failed to parse manifest file %s: %w", assetsManifestPath, err)
 	}
 
-	return func(file string) string {
-		return fmt.Sprintf("/%s/%s", buildPath, manifest[file])
-	}, nil
+	return webpack, nil
 }
+
+func (e Entrypoints) Scripts() Entrypoints {
+	var scripts Entrypoints
+
+	for _, f := range e {
+		if strings.HasSuffix(f,".js") {
+			scripts = append(scripts, f)
+		}
+	}
+
+	return scripts
+}
+
+func (e Entrypoints) Styles() Entrypoints {
+	var styles Entrypoints
+
+	for _, f := range e {
+		if strings.HasSuffix(f,".css") {
+			styles = append(styles, f)
+		}
+	}
+
+	return styles
+}
+

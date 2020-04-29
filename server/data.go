@@ -1,6 +1,9 @@
 package server
 
-import "github.com/trickstersio/go-create-react-app/webpack"
+import (
+	"fmt"
+	"github.com/trickstersio/go-create-react-app/webpack"
+)
 
 // User represents current user session
 type User struct {
@@ -12,14 +15,15 @@ type User struct {
 // ViewData contains data for the view
 type ViewData struct {
 	CurrentUser  User
-	assetsMapper webpack.AssetsMapper
+	Webpack *webpack.Webpack
 }
 
 // NewViewData creates new data for the view
 func NewViewData(buildPath string) (ViewData, error) {
-	assetsMapper, err := webpack.NewAssetsMapper(buildPath)
+	wp, err := webpack.New(buildPath)
+
 	if err != nil {
-		return ViewData{}, err
+		return ViewData{}, fmt.Errorf("failed to read webpack configuration: %w", err)
 	}
 
 	return ViewData{
@@ -28,11 +32,7 @@ func NewViewData(buildPath string) (ViewData, error) {
 			FirstName: "Bill",
 			LastName:  "Black",
 		},
-		assetsMapper: assetsMapper,
+		Webpack: wp,
 	}, nil
 }
 
-// Webpack maps file name to path
-func (d ViewData) Webpack(file string) string {
-	return d.assetsMapper(file)
-}

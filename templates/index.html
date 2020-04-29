@@ -4,7 +4,11 @@
     <meta charset="utf-8">
     <title>Create React App on the Go</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i&amp;subset=cyrillic" rel="stylesheet">
-    <link href="{{ .Webpack "main.css" }}" rel="stylesheet">
+
+    {{ range .Webpack.Manifest.Entrypoints.Styles }}
+      <link href="{{ . }}" rel="stylesheet">
+    {{ end }}
+
     <style>
       * {
         font-family: 'Roboto', sans-serif;
@@ -110,7 +114,10 @@
 
         <div id="root"></div>
 
-        <script src="{{ .Webpack "main.js" }}"></script>
+        {{ range .Webpack.Manifest.Entrypoints.Scripts }}
+          <script src="{{ . }}"></script>
+        {{ end }}
+
       </div>
     </div>
   </body>
