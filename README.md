@@ -1,54 +1,40 @@
 # Go: Create React App
 
-This is a demo project which shows one of possible implementations of intergration between regular server on Golang and React application created and built using [create-react-app](https://github.com/facebook/create-react-app).
+This is a demo project which shows one of possible implementations of integration between the regular server on Golang and 
+React application created and built using [create-react-app](https://github.com/facebook/create-react-app).
 
 ## How can I build it?
 
-It's supposed here that you have `Golang`, `Node.JS` and `yarn` instllaed on your computer. First of all you need to creare new React application. It's not delivered as part of the source code to be sure that latest version of `create-react-app`. So, clone the project and create test app:
+It's supposed here that you have `Golang` and `Node.JS` installed on your computer. We are also using `make` to simplify
+build flow. First of all you need to create new React application. It's not delivered as part of the source code to be sure 
+latest version of `create-react-app`. 
 
-```
-$ mkdir -p $GOPATH/src/github.com/trickstersio/go-create-react-app
-$ cd $GOPATH/src/github.com/trickstersio/go-create-react-app
-$ git clone https://github.com/trickstersio/go-create-react-app.git .
-$ npx create-react-app ui
-```
+So, clone the project and create test app:
 
-Ok, now we have our test project. Let's install it's dependencies and build it:
-
-```
-$ cd $GOPATH/src/github.com/trickstersio/go-create-react-app/ui
-$ yarn install
-$ PUBLIC_URL=http://127.0.0.1:9999/ui/build yarn build
+```shell script
+git clone https://github.com/trickstersio/go-create-react-app.git .
+make init
 ```
 
-Ok, now we have things to play with. Let's prepare our server for build. It has only one dependency right now:
+Ok, now we have our test project. Let's build our server now:
 
-```
-$ go get gopkg.in/alecthomas/kingpin.v2
-```
-
-Let's build:
-
-```
-$ cd $GOPATH/src/github.com/trickstersio/go-create-react-app
-$ go build -o bin/go-create-react-app cmd/main.go
+```shell script
+make build
 ```
 
 ## How I can run it?
 
-Just run server you built:
-
-```
-$ cd $GOPATH/src/github.com/trickstersio/go-create-react-app
-$ bin/go-create-react-app --listen 127.0.0.1:9999 --build ui/build
+```shell script
+make run
 ```
 
-And visit the web page:
+Visit the web page:
 
-```
-$ open http://127.0.0.1:9999
+```shell script
+open http://127.0.0.1:9999
 ```
 
 ## License
 
-Please, take a look at the [LICENSE](https://github.com/trickstersio/go-create-react-app/blob/master/LICENSE) file for details about this aspect of the project.
+Please, take a look at the [LICENSE](https://github.com/trickstersio/go-create-react-app/blob/master/LICENSE) file for the 
+details about this aspect of the project.
