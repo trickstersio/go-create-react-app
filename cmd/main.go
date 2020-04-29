@@ -36,10 +36,10 @@ func main() {
 	}
 
 	buildPath := path.Clean(cfg.BuildPath)
-	buildURL := fmt.Sprintf("/%s/", buildPath)
+	staticPath := path.Join(buildPath, "/static/")
 
 	mux := http.NewServeMux()
-	mux.Handle(buildURL, http.StripPrefix(buildURL, http.FileServer(http.Dir(buildPath))))
+	mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir(staticPath))))
 	mux.Handle("/api", api.Handler())
 	mux.Handle("/", server.Handler(buildPath))
 
