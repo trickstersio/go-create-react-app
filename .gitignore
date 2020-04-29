@@ -1,4 +1,5 @@
 ui/
 bin/
+.idea/
 
 .DS_Store

@@ -11,8 +11,8 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/kimrgrey/go-create-react-app/api"
-	"github.com/kimrgrey/go-create-react-app/server"
+	"github.com/trickstersio/go-create-react-app/api"
+	"github.com/trickstersio/go-create-react-app/server"
 	kingpin "gopkg.in/alecthomas/kingpin.v2"
 )
 

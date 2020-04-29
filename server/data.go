@@ -1,6 +1,6 @@
 package server
 
-import "github.com/kimrgrey/go-create-react-app/webpack"
+import "github.com/trickstersio/go-create-react-app/webpack"
 
 // User represents current user session
 type User struct {
